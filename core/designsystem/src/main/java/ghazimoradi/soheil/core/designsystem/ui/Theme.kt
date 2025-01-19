@@ -1,4 +1,4 @@
-package ghazimoradi.soheil.core.designsystem
+package ghazimoradi.soheil.core.designsystem.ui
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
