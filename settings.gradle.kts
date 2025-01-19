@@ -21,3 +21,15 @@ dependencyResolutionManagement {
 
 rootProject.name = "dictionary"
 include(":app")
+include(":core")
+include(":core:common")
+include(":core:data")
+include(":core:database")
+include(":core:designsystem")
+include(":core:domain")
+include(":core:model")
+include(":core:ui")
+include(":feature")
+include(":feature:addword")
+include(":feature:home")
+include(":feature:search")
