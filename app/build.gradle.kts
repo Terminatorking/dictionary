@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(project(":core:designsystem"))
     implementation(project(":feature:home"))
+    implementation(project(":feature:addword"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

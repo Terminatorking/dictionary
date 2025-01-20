@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="addNewWords">افزودن لغات جدید</string>
+    <string name="word">لغت</string>
+    <string name="wordTranslate">ترجمه لغت</string>
+    <string name="enterWord">لغت را وارد نمایید</string>
+    <string name="enterWordTranslate">ترجمه لغت را وارد نمایید</string>
+    <string name="addToBookmarks">افزودن به نشان شده ها</string>
+    <string name="add">افزودن</string>
+    <string name="english">انگلیسی</string>
+    <string name="persian">فارسی</string>
+</resources>

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import ghazimoradi.soheil.core.designsystem.ui.DictionaryTheme
+import ghazimoradi.soheil.feature.addword.AddWordScreen
 import ghazimoradi.soheil.home.HomeScreen
 
 class MainActivity : ComponentActivity() {
@@ -17,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             DictionaryTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeScreen(context = this@MainActivity, paddingValues = innerPadding)
+                    AddWordScreen(context = this@MainActivity, paddingValues = innerPadding)
                 }
             }
         }
