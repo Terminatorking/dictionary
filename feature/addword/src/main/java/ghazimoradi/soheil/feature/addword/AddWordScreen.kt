@@ -25,7 +25,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ghazimoradi.soheil.core.designsystem.components.DictionaryTextBodyMedium
@@ -33,12 +32,12 @@ import ghazimoradi.soheil.core.designsystem.components.DictionaryTextBodySmall
 import ghazimoradi.soheil.core.designsystem.components.DictionaryTextFieldLabelMedium
 import ghazimoradi.soheil.core.designsystem.components.DictionaryTextLabelLarge
 import ghazimoradi.soheil.core.designsystem.ui.Anti_Flash_White
+import ghazimoradi.soheil.core.designsystem.ui.Axolotl
 import ghazimoradi.soheil.core.designsystem.ui.Black
 import ghazimoradi.soheil.core.designsystem.ui.BlackAlpha4f
 import ghazimoradi.soheil.core.designsystem.ui.Bright_Gray
-import ghazimoradi.soheil.core.designsystem.ui.Gray
-import ghazimoradi.soheil.core.designsystem.ui.Axolotl
 import ghazimoradi.soheil.core.designsystem.ui.Davys_Grey
+import ghazimoradi.soheil.core.designsystem.ui.Gray
 import ghazimoradi.soheil.core.designsystem.ui.Platinum
 import ghazimoradi.soheil.core.designsystem.ui.White
 

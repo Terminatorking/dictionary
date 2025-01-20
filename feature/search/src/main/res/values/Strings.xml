@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="searchWord">جستجو لغت</string>
+    <string name="toEnglish">به انگلیسی</string>
+    <string name="toPersian">به فارسی</string>
+</resources>

@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Shapes
 import androidx.compose.runtime.Composable
@@ -22,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import ghazimoradi.soheil.core.designsystem.components.*
 import ghazimoradi.soheil.core.designsystem.icon.*
 import ghazimoradi.soheil.core.designsystem.ui.*
+import ghazimoradi.soheil.core.ui.WordItems
 
 
 @Composable
@@ -44,38 +44,6 @@ fun WordList() {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(20) {
             WordItems()
-        }
-    }
-}
-
-@Composable
-fun WordItems() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(12.dp)
-            .background(
-                color = White,
-                shape = RoundedCornerShape(5.dp),
-            ),
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
-        ) {
-            Column {
-                DictionaryTextBodySmall(text = "Hello", color = Black)
-                DictionaryTextLabelLarge(text = "سلام", color = BlackHalfAlpha)
-            }
-            Icon(
-                tint = Deep_Champagne,
-                modifier = Modifier.size(24.dp),
-                imageVector = Star,
-                contentDescription = ""
-            )
         }
     }
 }

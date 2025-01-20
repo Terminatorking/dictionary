@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import ghazimoradi.soheil.core.designsystem.ui.DictionaryTheme
-import ghazimoradi.soheil.feature.addword.AddWordScreen
-import ghazimoradi.soheil.home.HomeScreen
+import ghazimoradi.soheil.feature.search.SearchScreen
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             DictionaryTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    AddWordScreen(context = this@MainActivity, paddingValues = innerPadding)
+                    SearchScreen(context = this@MainActivity, paddingValues = innerPadding)
                 }
             }
         }
