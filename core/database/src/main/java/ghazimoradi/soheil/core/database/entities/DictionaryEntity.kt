@@ -10,7 +10,7 @@ data class DictionaryEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val enWord: String,
     val faWord: String,
-    val isBookmarked: Boolean,
+//    val isBookmarked: Boolean,
 ){
     companion object{
         const val DICTIONARY_TABLE = "dictionaryTable"

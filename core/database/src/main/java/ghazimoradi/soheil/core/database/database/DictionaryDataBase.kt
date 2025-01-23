@@ -7,5 +7,8 @@ import ghazimoradi.soheil.core.database.entities.DictionaryEntity
 
 @Database([DictionaryEntity::class], version = 1)
 abstract class DictionaryDataBase : RoomDatabase() {
+    companion object {
+        const val DATABASE_NAME = "dictionary"
+    }
     abstract fun getDictionaryDao(): DictionaryDao
 }
