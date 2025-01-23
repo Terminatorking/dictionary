@@ -7,10 +7,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ghazimoradi.soheil.core.designsystem.ui.DictionaryTheme
-import ghazimoradi.soheil.feature.search.SearchScreen
-import ghazimoradi.soheil.home.HomeScreen
+import ghazimoradi.soheil.dictionary.navigation.DictionaryNavigation
+import ghazimoradi.soheil.home.navigation.HomeScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -20,7 +21,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             DictionaryTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeScreen(context = this@MainActivity, paddingValues = innerPadding)
+                    val navHostController = rememberNavController()
+                    DictionaryNavigation(
+                        context = this@MainActivity,
+                        paddingValues = innerPadding,
+                        modifier = Modifier,
+                        navHostController = navHostController,
+                        startDestination = HomeScreen
+                    )
                 }
             }
         }
