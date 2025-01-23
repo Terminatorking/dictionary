@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:model"))
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.room.ktx)

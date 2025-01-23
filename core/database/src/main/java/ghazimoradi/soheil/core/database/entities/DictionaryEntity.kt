@@ -3,7 +3,7 @@ package ghazimoradi.soheil.core.database.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ghazimoradi.soheil.core.database.entities.DictionaryEntity.Companion.DICTIONARY_TABLE
-
+import ghazimoradi.soheil.model.Dictionary
 
 @Entity(tableName = DICTIONARY_TABLE)
 data class DictionaryEntity(
@@ -11,8 +11,16 @@ data class DictionaryEntity(
     val enWord: String,
     val faWord: String,
 //    val isBookmarked: Boolean,
-){
-    companion object{
+) {
+    companion object {
         const val DICTIONARY_TABLE = "dictionaryTable"
     }
+}
+
+fun DictionaryEntity.toDictionary(): Dictionary {
+    return Dictionary(id = this.id, enWord = this.enWord, faWord = this.faWord)
+}
+
+fun Dictionary.toDictionaryEntity(): DictionaryEntity {
+    return DictionaryEntity(id = this.id, enWord = this.enWord, faWord = this.faWord)
 }
