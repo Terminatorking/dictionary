@@ -1,7 +1,5 @@
 package ghazimoradi.soheil.home
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,6 +8,9 @@ import ghazimoradi.soheil.core.domain.usecases.GetDictionaryWordsUseCase
 import ghazimoradi.soheil.core.domain.usecases.UpdateWordUseCase
 import ghazimoradi.soheil.home.events.HomeScreenEvents
 import ghazimoradi.soheil.model.Dictionary
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,18 +24,18 @@ class HomeScreenViewModel @Inject constructor(
     private var currentPage = 0
     private var pageSize = 20
 
-    private val _words = mutableStateOf<List<Dictionary>>(emptyList())
-    val words: MutableState<List<Dictionary>> get() = _words
+    private val _words = MutableStateFlow<List<Dictionary>>(emptyList())
+    val words: StateFlow<List<Dictionary>> get() = _words
 
-    private val _bookMarkedWords = mutableStateOf<List<Dictionary>>(emptyList())
-    val bookMarkedWords: MutableState<List<Dictionary>> get() = _bookMarkedWords
+    private val _bookMarkedWords = MutableStateFlow<List<Dictionary>>(emptyList())
+    val bookMarkedWords: StateFlow<List<Dictionary>> get() = _bookMarkedWords
 
     init {
         loadNextPage()
         getBookMarkedWords()
     }
 
-    private fun loadNextPage() {
+    fun loadNextPage() {
         viewModelScope.launch {
             val collectedWords =
                 getDictionaryWordsUseCase.invoke(limit = pageSize, offset = currentPage * pageSize)
@@ -56,10 +57,10 @@ class HomeScreenViewModel @Inject constructor(
         }
     }
 
-    private fun getBookMarkedWords() {
+    fun getBookMarkedWords() {
         viewModelScope.launch {
-            getBookMarkedWordsUseCase.invoke().collect {
-                _bookMarkedWords.value = it
+            _bookMarkedWords.update {
+                getBookMarkedWordsUseCase.invoke()
             }
         }
     }

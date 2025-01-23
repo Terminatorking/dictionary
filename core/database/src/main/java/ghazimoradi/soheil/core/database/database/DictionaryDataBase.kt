@@ -7,7 +7,7 @@ import ghazimoradi.soheil.core.database.entities.DictionaryEntity
 import ghazimoradi.soheil.core.database.migration.Migration1To2
 import ghazimoradi.soheil.core.database.utils.MigrationManager
 
-@Database([DictionaryEntity::class], version = 2)
+@Database(entities = [DictionaryEntity::class], version = 2)
 abstract class DictionaryDataBase : RoomDatabase() {
     companion object {
         const val DATABASE_NAME = "dictionary"

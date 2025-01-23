@@ -7,7 +7,8 @@ import ghazimoradi.soheil.model.Dictionary
 
 @Entity(tableName = DICTIONARY_TABLE)
 data class DictionaryEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
     val enWord: String,
     val faWord: String,
     val isBookMarked: Boolean,

@@ -17,5 +17,5 @@ interface DictionaryDao {
     suspend fun getWords(limit: Int, offset: Int): List<DictionaryEntity>
 
     @Query("select * from $DICTIONARY_TABLE where isBookMarked = 1")
-    suspend fun getBookMarkedWords(): Flow<List<DictionaryEntity>>
+    suspend fun getBookMarkedWords(): List<DictionaryEntity>
 }
