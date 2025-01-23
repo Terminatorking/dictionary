@@ -10,7 +10,7 @@ data class DictionaryEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val enWord: String,
     val faWord: String,
-//    val isBookmarked: Boolean,
+    val isBookMarked: Boolean,
 ) {
     companion object {
         const val DICTIONARY_TABLE = "words"
@@ -18,9 +18,19 @@ data class DictionaryEntity(
 }
 
 fun DictionaryEntity.toDictionary(): Dictionary {
-    return Dictionary(id = this.id, enWord = this.enWord, faWord = this.faWord)
+    return Dictionary(
+        id = this.id,
+        enWord = this.enWord,
+        faWord = this.faWord,
+        isBookMarked = this.isBookMarked
+    )
 }
-
-fun Dictionary.toDictionaryEntity(): DictionaryEntity {
-    return DictionaryEntity(id = this.id, enWord = this.enWord, faWord = this.faWord)
-}
+//
+//fun Dictionary.toDictionaryEntity(): DictionaryEntity {
+//    return DictionaryEntity(
+//        id = this.id,
+//        enWord = this.enWord,
+//        faWord = this.faWord,
+//        isBookMarked = this.isBookMarked
+//    )
+//}

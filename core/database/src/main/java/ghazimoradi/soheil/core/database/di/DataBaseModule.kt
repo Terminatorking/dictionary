@@ -10,6 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import ghazimoradi.soheil.core.database.dao.DictionaryDao
 import ghazimoradi.soheil.core.database.database.DictionaryDataBase
 import ghazimoradi.soheil.core.database.database.DictionaryDataBase.Companion.DATABASE_NAME
+import ghazimoradi.soheil.core.database.database.DictionaryDataBase.Companion.createMigrations
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -21,7 +22,9 @@ class DataBaseModule {
             context = context,
             DictionaryDataBase::class.java,
             DATABASE_NAME
-        ).createFromAsset("dictionary.db").build()
+        ).createFromAsset("dictionary.db")
+            .addMigrations(*createMigrations().getMigrations().toTypedArray())
+            .build()
     }
 
     @Provides
