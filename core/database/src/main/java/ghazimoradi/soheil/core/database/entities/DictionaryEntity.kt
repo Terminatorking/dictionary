@@ -25,12 +25,12 @@ fun DictionaryEntity.toDictionary(): Dictionary {
         isBookMarked = this.isBookMarked
     )
 }
-//
-//fun Dictionary.toDictionaryEntity(): DictionaryEntity {
-//    return DictionaryEntity(
-//        id = this.id,
-//        enWord = this.enWord,
-//        faWord = this.faWord,
-//        isBookMarked = this.isBookMarked
-//    )
-//}
+
+fun Dictionary.toDictionaryEntity(): DictionaryEntity {
+    return DictionaryEntity(
+        id = this.id,
+        enWord = this.enWord,
+        faWord = this.faWord,
+        isBookMarked = this.isBookMarked
+    )
+}
