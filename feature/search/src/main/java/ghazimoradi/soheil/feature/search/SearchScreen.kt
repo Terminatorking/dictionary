@@ -68,7 +68,7 @@ private fun SearchSection(context: Context) {
 fun WordList() {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(20) {
-           WordItems()
+//           WordItems()
         }
     }
 }

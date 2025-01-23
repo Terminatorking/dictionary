@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import ghazimoradi.soheil.core.designsystem.ui.DictionaryTheme
 import ghazimoradi.soheil.feature.search.SearchScreen
+import ghazimoradi.soheil.home.HomeScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -19,7 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             DictionaryTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    SearchScreen(context = this@MainActivity, paddingValues = innerPadding)
+                    HomeScreen(context = this@MainActivity, paddingValues = innerPadding)
                 }
             }
         }

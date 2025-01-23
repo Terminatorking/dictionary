@@ -13,7 +13,7 @@ data class DictionaryEntity(
 //    val isBookmarked: Boolean,
 ) {
     companion object {
-        const val DICTIONARY_TABLE = "dictionaryTable"
+        const val DICTIONARY_TABLE = "words"
     }
 }
 

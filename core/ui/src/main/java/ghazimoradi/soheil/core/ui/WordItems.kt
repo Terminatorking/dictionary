@@ -21,10 +21,10 @@ import ghazimoradi.soheil.core.designsystem.icon.Star
 import ghazimoradi.soheil.core.designsystem.ui.Black
 import ghazimoradi.soheil.core.designsystem.ui.BlackHalfAlpha
 import ghazimoradi.soheil.core.designsystem.ui.Deep_Champagne
-
+import ghazimoradi.soheil.model.Dictionary
 
 @Composable
-fun WordItems() {
+fun WordItems(dictionary: Dictionary) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -42,8 +42,8 @@ fun WordItems() {
                 .padding(10.dp)
         ) {
             Column {
-                DictionaryTextBodySmall(text = "Hello", color = Black)
-                DictionaryTextLabelLarge(text = "سلام", color = BlackHalfAlpha)
+                DictionaryTextBodySmall(text = dictionary.enWord, color = Black)
+                DictionaryTextLabelLarge(text = dictionary.faWord, color = BlackHalfAlpha)
             }
             Icon(
                 tint = Deep_Champagne,

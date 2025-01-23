@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.hilt.navigation.compose)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(project(":core:designsystem"))

@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.hilt.navigation.compose)
     implementation(libs.hilt.android)
     implementation(project(":core:domain"))
     implementation(project(":core:model"))

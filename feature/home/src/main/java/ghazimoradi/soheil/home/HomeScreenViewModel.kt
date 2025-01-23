@@ -26,7 +26,7 @@ class HomeScreenViewModel @Inject constructor(
     fun loadNextPage() {
         viewModelScope.launch {
             val collectedWords =
-                getDictionaryWordsUseCase.invoke(limit = pageSize, offset = currentPage)
+                getDictionaryWordsUseCase.invoke(limit = pageSize, offset = currentPage * pageSize)
             _words.value += collectedWords
             currentPage++
         }
