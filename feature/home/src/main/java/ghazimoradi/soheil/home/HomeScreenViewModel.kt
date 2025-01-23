@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ghazimoradi.soheil.core.domain.usecases.GetBookMarkedWordsUseCase
 import ghazimoradi.soheil.core.domain.usecases.GetDictionaryWordsUseCase
 import ghazimoradi.soheil.core.domain.usecases.UpdateWordUseCase
 import ghazimoradi.soheil.home.events.HomeScreenEvents
@@ -15,15 +16,22 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
     private val getDictionaryWordsUseCase: GetDictionaryWordsUseCase,
-    private val updateWordUseCase: UpdateWordUseCase
+    private val updateWordUseCase: UpdateWordUseCase,
+    private val getBookMarkedWordsUseCase: GetBookMarkedWordsUseCase
 ) : ViewModel() {
+
     private var currentPage = 0
     private var pageSize = 20
+
     private val _words = mutableStateOf<List<Dictionary>>(emptyList())
     val words: MutableState<List<Dictionary>> get() = _words
 
+    private val _bookMarkedWords = mutableStateOf<List<Dictionary>>(emptyList())
+    val bookMarkedWords: MutableState<List<Dictionary>> get() = _bookMarkedWords
+
     init {
         loadNextPage()
+        getBookMarkedWords()
     }
 
     private fun loadNextPage() {
@@ -45,6 +53,14 @@ class HomeScreenViewModel @Inject constructor(
     private fun updateBookMarked(dictionary: Dictionary) {
         viewModelScope.launch {
             updateWordUseCase.invoke(dictionary = dictionary)
+        }
+    }
+
+    private fun getBookMarkedWords() {
+        viewModelScope.launch {
+            getBookMarkedWordsUseCase.invoke().collect {
+                _bookMarkedWords.value = it
+            }
         }
     }
 }

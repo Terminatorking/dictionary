@@ -4,6 +4,8 @@ import ghazimoradi.soheil.core.database.dao.DictionaryDao
 import ghazimoradi.soheil.core.database.entities.toDictionary
 import ghazimoradi.soheil.core.database.entities.toDictionaryEntity
 import ghazimoradi.soheil.model.Dictionary
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DictionaryRepositoryImpl @Inject constructor(private val dictionaryDao: DictionaryDao) :
@@ -16,5 +18,13 @@ class DictionaryRepositoryImpl @Inject constructor(private val dictionaryDao: Di
 
     override suspend fun updateWord(dictionary: Dictionary) {
         dictionaryDao.updateWord(entity = dictionary.toDictionaryEntity())
+    }
+
+    override suspend fun getBookMarkedWords(): Flow<List<Dictionary>> {
+        return dictionaryDao.getBookMarkedWords().map { dictionaryEntityList ->
+            dictionaryEntityList.map { dictionaryEntity ->
+                dictionaryEntity.toDictionary()
+            }
+        }
     }
 }
