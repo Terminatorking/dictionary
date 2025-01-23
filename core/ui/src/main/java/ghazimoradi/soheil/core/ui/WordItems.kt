@@ -17,13 +17,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import ghazimoradi.soheil.core.designsystem.components.DictionaryTextBodySmall
 import ghazimoradi.soheil.core.designsystem.components.DictionaryTextLabelLarge
-import ghazimoradi.soheil.core.designsystem.icon.Star
+import ghazimoradi.soheil.core.designsystem.icon.BookMark
 import ghazimoradi.soheil.core.designsystem.ui.Black
 import ghazimoradi.soheil.core.designsystem.ui.BlackHalfAlpha
-import ghazimoradi.soheil.core.designsystem.ui.Deep_Champagne
+import ghazimoradi.soheil.core.designsystem.ui.Button_Blue
 import ghazimoradi.soheil.core.designsystem.ui.Gray
 import ghazimoradi.soheil.model.Dictionary
 
@@ -53,13 +54,14 @@ fun WordItems(dictionary: Dictionary, onBookMarkClicked: (Dictionary) -> Unit) {
                 DictionaryTextLabelLarge(text = dictionary.faWord, color = BlackHalfAlpha)
             }
             Icon(
-                tint = if (isBookMarked.value) Deep_Champagne else Gray,
+                tint = if (isBookMarked.value) Button_Blue else Gray,
                 modifier = Modifier
                     .clickable {
-                        isBookMarked.value = ! isBookMarked.value
+                        isBookMarked.value = !isBookMarked.value
                         onBookMarkClicked.invoke(dictionary.copy(isBookMarked = isBookMarked.value))
-                    }.size(24.dp),
-                imageVector = Star,
+                    }
+                    .size(24.dp),
+                painter = painterResource(id = BookMark),
                 contentDescription = ""
             )
         }

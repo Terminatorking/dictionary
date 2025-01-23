@@ -11,7 +11,7 @@ val BlackHalfAlpha = Color.Black.copy(alpha = 0.5f)
 val White = Color.White
 val Anti_Flash_White = Color(0xFFF1F1F1)
 val Bright_Gray = Color(0xffeeeeee)
-val Deep_Champagne = Color(0xffffd6a5)
+val Button_Blue = Color(0xff2096F3)
 val Platinum = Color(0xFFE6E6E6)
 val Davys_Grey = Color(0xff495057)
 val Gray = Color.Gray
