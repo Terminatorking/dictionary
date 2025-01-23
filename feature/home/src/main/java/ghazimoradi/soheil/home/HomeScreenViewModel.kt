@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ghazimoradi.soheil.core.domain.usecases.GetDictionaryWordsUseCase
 import ghazimoradi.soheil.core.domain.usecases.UpdateWordUseCase
+import ghazimoradi.soheil.home.events.HomeScreenEvents
 import ghazimoradi.soheil.model.Dictionary
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,7 +26,7 @@ class HomeScreenViewModel @Inject constructor(
         loadNextPage()
     }
 
-    fun loadNextPage() {
+    private fun loadNextPage() {
         viewModelScope.launch {
             val collectedWords =
                 getDictionaryWordsUseCase.invoke(limit = pageSize, offset = currentPage * pageSize)
@@ -34,9 +35,16 @@ class HomeScreenViewModel @Inject constructor(
         }
     }
 
-    private fun addWordToBookMarked(dictionary: Dictionary) {
+    fun onEvents(event: HomeScreenEvents) {
+        when (event) {
+            is HomeScreenEvents.UpdateBookMark -> updateBookMarked(event.dictionary)
+            is HomeScreenEvents.LoadNextPage -> loadNextPage()
+        }
+    }
+
+    private fun updateBookMarked(dictionary: Dictionary) {
         viewModelScope.launch {
-            updateWordUseCase.invoke(dictionary = dictionary.copy(isBookMarked = true))
+            updateWordUseCase.invoke(dictionary = dictionary)
         }
     }
 }

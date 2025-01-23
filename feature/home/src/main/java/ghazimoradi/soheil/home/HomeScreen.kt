@@ -27,6 +27,7 @@ import ghazimoradi.soheil.core.designsystem.components.*
 import ghazimoradi.soheil.core.designsystem.icon.*
 import ghazimoradi.soheil.core.designsystem.ui.*
 import ghazimoradi.soheil.core.ui.WordItems
+import ghazimoradi.soheil.home.events.HomeScreenEvents
 
 
 @Composable
@@ -54,7 +55,13 @@ fun WordList(viewModel: HomeScreenViewModel) {
     val listState = rememberLazyListState()
     LazyColumn(modifier = Modifier.fillMaxSize(), state = listState) {
         items(dictionaryWords.value.size) { index ->
-            WordItems(dictionary = dictionaryWords.value[index])
+            val currentDictionary = dictionaryWords.value[index]
+            WordItems(
+                dictionary = currentDictionary,
+                onBookMarkClicked = {
+                    viewModel.onEvents(HomeScreenEvents.UpdateBookMark(it))
+                },
+            )
         }
     }
     val shouldLoadMore = remember {
@@ -68,7 +75,7 @@ fun WordList(viewModel: HomeScreenViewModel) {
     //if value of shouldLoadMore change LaunchedEffect will run
     LaunchedEffect(shouldLoadMore.value) {
         if (shouldLoadMore.value) {
-            viewModel.loadNextPage()
+            viewModel.onEvents(event = HomeScreenEvents.LoadNextPage)
         }
     }
 }
