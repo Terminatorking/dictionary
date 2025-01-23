@@ -40,6 +40,8 @@ android {
 
 dependencies {
     implementation(libs.hilt.android)
+    implementation(project(":core:data"))
+    implementation(project(":core:model"))
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
