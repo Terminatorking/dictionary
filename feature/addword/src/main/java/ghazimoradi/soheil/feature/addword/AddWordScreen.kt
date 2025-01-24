@@ -83,6 +83,8 @@ fun AddWordScreen(context: Context, paddingValues: PaddingValues) {
                 }
             )
             DictionaryFiled(
+                onclick = {},
+                showIcon = true,
                 title = context.getString(R.string.wordTranslate),
                 hint = context.getString(R.string.enterWordTranslate),
                 value = wordTranslateTextFieldValue,
