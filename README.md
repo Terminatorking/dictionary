@@ -1,6 +1,7 @@
 an english to persain dictionary app which developed by jetpack compose
 
-![Screenshot of the App](images/Screenshot_20250124_202237.png with="250")
-![Screenshot of the App](images/Screenshot_20250124_202524.png)
-![Screenshot of the App](images/Screenshot_20250124_202546.png)
-![Screenshot of the App](images/Screenshot_20250124_202627.png)
+## Demo
+
+### Home Screen
+<img src="images/Screenshot_20250124_202237.png" width="250"/> <img src="images/Screenshot_20250124_202524.png" width="250"/>
+<img src="images/Screenshot_20250124_202546.png" width="250"/> <img src="images/Screenshot_20250124_202627.png" width="250"/>
