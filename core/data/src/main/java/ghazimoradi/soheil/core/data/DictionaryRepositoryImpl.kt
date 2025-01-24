@@ -4,6 +4,7 @@ import ghazimoradi.soheil.core.database.dao.DictionaryDao
 import ghazimoradi.soheil.core.database.entities.toDictionary
 import ghazimoradi.soheil.core.database.entities.toDictionaryEntity
 import ghazimoradi.soheil.model.Dictionary
+import ghazimoradi.soheil.model.SearchType
 import javax.inject.Inject
 
 class DictionaryRepositoryImpl @Inject constructor(private val dictionaryDao: DictionaryDao) :
@@ -21,6 +22,13 @@ class DictionaryRepositoryImpl @Inject constructor(private val dictionaryDao: Di
     override suspend fun getBookMarkedWords(): List<Dictionary> {
         return dictionaryDao.getBookMarkedWords().map {
             it.toDictionary()
+        }
+    }
+
+    override suspend fun searchWord(query: String?, searchType: SearchType): List<Dictionary> {
+        return when (searchType) {
+            SearchType.FA -> dictionaryDao.englishSearch(query = query).map { it.toDictionary() }
+            SearchType.En -> dictionaryDao.persianSearch(query = query).map { it.toDictionary() }
         }
     }
 }

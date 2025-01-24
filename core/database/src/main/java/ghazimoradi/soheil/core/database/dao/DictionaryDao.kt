@@ -3,7 +3,6 @@ package ghazimoradi.soheil.core.database.dao
 import androidx.room.*
 import ghazimoradi.soheil.core.database.entities.DictionaryEntity
 import ghazimoradi.soheil.core.database.entities.DictionaryEntity.Companion.DICTIONARY_TABLE
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DictionaryDao {
@@ -18,4 +17,10 @@ interface DictionaryDao {
 
     @Query("select * from $DICTIONARY_TABLE where isBookMarked = 1")
     suspend fun getBookMarkedWords(): List<DictionaryEntity>
+
+    @Query("select * from $DICTIONARY_TABLE where enWord like '%' || :query || '%'")
+    suspend fun englishSearch(query: String?): List<DictionaryEntity>
+
+    @Query("select * from $DICTIONARY_TABLE where faWord like '%' || :query || '%'")
+    suspend fun persianSearch(query: String?): List<DictionaryEntity>
 }
