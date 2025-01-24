@@ -8,5 +8,4 @@ interface DictionaryRepository {
     suspend fun updateWord(dictionary: Dictionary)
     suspend fun getBookMarkedWords(): List<Dictionary>
     suspend fun searchWord(query: String?, searchType: SearchType): List<Dictionary>
-
 }

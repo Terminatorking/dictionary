@@ -3,6 +3,7 @@ package ghazimoradi.soheil.feature.search
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,9 +15,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Shapes
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,7 +32,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ghazimoradi.soheil.core.designsystem.components.*
 import ghazimoradi.soheil.core.designsystem.icon.*
 import ghazimoradi.soheil.core.designsystem.ui.*
+import ghazimoradi.soheil.core.ui.WordItems
 import ghazimoradi.soheil.core.ui.bottomSheet.SearchTypeBottomSheet
+import ghazimoradi.soheil.feature.search.events.SearchScreenEvents
+import ghazimoradi.soheil.model.Dictionary
 import ghazimoradi.soheil.model.SearchType
 
 @Composable
@@ -39,8 +45,12 @@ fun SearchScreen(
     viewModel: SearchScreenViewModel = hiltViewModel()
 ) {
     val searchWords = viewModel.searchWords.collectAsState()
-    val showBottomSheet = remember { mutableStateOf(false) }
-    val selectedType = remember { mutableStateOf(SearchType.En) }
+    val showBottomSheet = remember {
+        mutableStateOf(false)
+    }
+    val selectedType = remember {
+        mutableStateOf(SearchType.En)
+    }
 
     if (showBottomSheet.value) {
         SearchTypeBottomSheet(
@@ -60,13 +70,28 @@ fun SearchScreen(
             .background(color = Anti_Flash_White)
             .padding(paddingValues),
     ) {
-        SearchSection(context = context)
-        WordList()
+        SearchSection(
+            showBottomSheet = showBottomSheet,
+            context = context,
+            onSearch = { search ->
+                viewModel.onEvent(
+                    event = SearchScreenEvents.Search(
+                        query = search,
+                        searchType = selectedType.value
+                    )
+                )
+            },
+        )
+        WordList(searchWords = searchWords.value)
     }
 }
 
 @Composable
-private fun SearchSection(context: Context) {
+private fun SearchSection(
+    context: Context,
+    onSearch: (String) -> Unit,
+    showBottomSheet: MutableState<Boolean>
+) {
     var searchStateValue by remember { mutableStateOf("") }
     Row(
         modifier = Modifier
@@ -75,23 +100,31 @@ private fun SearchSection(context: Context) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        SearchFilter(context = context, modifier = Modifier.weight(0.4f))
+        SearchFilter(
+            context = context,
+            modifier = Modifier
+                .weight(0.4f)
+                .clickable { showBottomSheet.value = true },
+        )
         Spacer(modifier = Modifier.width(15.dp))
         SearchBox(
             modifier = Modifier.weight(1f),
             context = context,
             value = searchStateValue,
-            onValueChange = { searchStateValue = it },
+            onValueChange = {
+                searchStateValue = it
+                onSearch.invoke(searchStateValue)
+            },
         )
 
     }
 }
 
 @Composable
-fun WordList() {
+fun WordList(searchWords: List<Dictionary>) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(20) {
-//           WordItems()
+        items(searchWords) {
+            WordItems(dictionary = it, onBookMarkClicked = {})
         }
     }
 }

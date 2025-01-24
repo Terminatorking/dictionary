@@ -11,8 +11,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import ghazimoradi.soheil.core.designsystem.components.DictionaryTextBodySmall
 import ghazimoradi.soheil.core.designsystem.components.DictionaryTextLabelLarge
 import ghazimoradi.soheil.core.designsystem.components.DictionaryTextLabelMedium
 import ghazimoradi.soheil.core.designsystem.ui.Black
@@ -32,9 +35,14 @@ fun SearchTypeBottomSheet(
         modifier = Modifier.fillMaxWidth(),
         onDismissRequest = onDismissRequest
     ) {
-        LazyColumn(modifier = Modifier.fillMaxWidth()) {
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             item {
-                DictionaryTextLabelLarge(
+                DictionaryTextBodySmall(
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
                     text = context.getString(R.string.searchType),
                     color = Black
                 )
@@ -55,7 +63,9 @@ private fun SearchTypeItem(searchType: SearchType, context: Context) {
             .border(width = 1.dp, color = Gray, shape = CircleShape)
             .padding(vertical = 4.dp, horizontal = 6.dp)
     ) {
-        DictionaryTextLabelMedium(
+        DictionaryTextLabelLarge(
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center,
             text = if (searchType == SearchType.En) context.getString(R.string.english)
             else context.getString(
                 R.string.persian

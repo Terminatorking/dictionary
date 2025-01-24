@@ -27,8 +27,8 @@ class DictionaryRepositoryImpl @Inject constructor(private val dictionaryDao: Di
 
     override suspend fun searchWord(query: String?, searchType: SearchType): List<Dictionary> {
         return when (searchType) {
-            SearchType.FA -> dictionaryDao.englishSearch(query = query).map { it.toDictionary() }
-            SearchType.En -> dictionaryDao.persianSearch(query = query).map { it.toDictionary() }
+            SearchType.FA -> dictionaryDao.persianSearch(query = query).map { it.toDictionary() }
+            SearchType.En -> dictionaryDao.englishSearch(query = query).map { it.toDictionary() }
         }
     }
 }

@@ -7,6 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import ghazimoradi.soheil.feature.addword.navigation.addWordScreen
+import ghazimoradi.soheil.feature.addword.navigation.navigateToAddWordScreen
+import ghazimoradi.soheil.feature.search.navigation.navigateToSearchScreen
 import ghazimoradi.soheil.feature.search.navigation.searchScreen
 import ghazimoradi.soheil.home.navigation.homeScreen
 
@@ -25,7 +27,12 @@ fun DictionaryNavigation(
         startDestination = startDestination
     ) {
         addWordScreen(context = context, paddingValues = paddingValues)
-        homeScreen(context = context, paddingValues = paddingValues)
+        homeScreen(
+            context = context,
+            paddingValues = paddingValues,
+            navigateToAddWordScreen = { navHostController.navigateToAddWordScreen() },
+            navigateToSearchScreen = { navHostController.navigateToSearchScreen() },
+        )
         searchScreen(context = context, paddingValues = paddingValues)
     }
 }

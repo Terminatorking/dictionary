@@ -46,6 +46,8 @@ enum class HomeScreenTabs {
 
 @Composable
 fun HomeScreen(
+    navigateToAddWordScreen: () -> Unit,
+    navigateToSearchScreen: () -> Unit,
     context: Context,
     paddingValues: PaddingValues,
     viewModel: HomeScreenViewModel = hiltViewModel()
@@ -61,7 +63,11 @@ fun HomeScreen(
             .background(color = Anti_Flash_White),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        ToolBar(context = context)
+        ToolBar(
+            context = context,
+            navigateToSearchScreen = navigateToSearchScreen,
+            navigateToAddWordScreen = navigateToAddWordScreen
+        )
         DictionaryTabLayOut(
             context = context,
             selectedTab = selectedTab.value,
@@ -173,7 +179,11 @@ fun DictionaryTabLayOut(
 }
 
 @Composable
-fun ToolBar(context: Context) {
+fun ToolBar(
+    context: Context,
+    navigateToSearchScreen: () -> Unit,
+    navigateToAddWordScreen: () -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -182,14 +192,18 @@ fun ToolBar(context: Context) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Icon(
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier
+                .size(24.dp)
+                .clickable { navigateToAddWordScreen.invoke() },
             imageVector = Add,
             contentDescription = "",
             tint = Black
         )
         DictionaryTextBodyMedium(text = context.getString(R.string.dictionary), color = Black)
         Icon(
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier
+                .size(24.dp)
+                .clickable { navigateToSearchScreen.invoke() },
             imageVector = Search,
             contentDescription = "",
             tint = Black

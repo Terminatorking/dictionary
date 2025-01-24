@@ -9,12 +9,22 @@ import ghazimoradi.soheil.home.HomeScreen
 
 const val HomeScreen = "HomeScreenNavigation"
 
-fun NavGraphBuilder.homeScreen(context: Context, paddingValues: PaddingValues) {
+fun NavGraphBuilder.homeScreen(
+    context: Context,
+    paddingValues: PaddingValues,
+    navigateToSearchScreen: () -> Unit,
+    navigateToAddWordScreen: () -> Unit,
+) {
     composable(route = HomeScreen) {
-        HomeScreen(context = context, paddingValues = paddingValues)
+        HomeScreen(
+            context = context,
+            paddingValues = paddingValues,
+            navigateToSearchScreen = navigateToSearchScreen,
+            navigateToAddWordScreen = navigateToAddWordScreen
+        )
     }
 }
 
-fun NavController.navigateToHomeScreen(){
+fun NavController.navigateToHomeScreen() {
     navigate(route = HomeScreen)
 }
