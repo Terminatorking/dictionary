@@ -3,6 +3,7 @@ package ghazimoradi.soheil.feature.addword
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,9 +12,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Shapes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -30,6 +34,7 @@ import ghazimoradi.soheil.core.designsystem.ui.White
 import ghazimoradi.soheil.feature.addword.views.DictionaryFiled
 import ghazimoradi.soheil.feature.addword.views.DictionaryOption
 import ghazimoradi.soheil.feature.addword.views.DictionaryTabLayOut
+import ghazimoradi.soheil.feature.addword.views.TranslationItem
 
 enum class AddWordScreenTabs {
     FA, EN
@@ -37,6 +42,10 @@ enum class AddWordScreenTabs {
 
 @Composable
 fun AddWordScreen(context: Context, paddingValues: PaddingValues) {
+
+    var translationWords = remember {
+        mutableStateListOf<String>()
+    }
     var selectedTab by remember {
         mutableStateOf(AddWordScreenTabs.EN)
     }
@@ -49,6 +58,7 @@ fun AddWordScreen(context: Context, paddingValues: PaddingValues) {
     var addToBookmarksValue by remember {
         mutableStateOf(false)
     }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -83,7 +93,10 @@ fun AddWordScreen(context: Context, paddingValues: PaddingValues) {
                 }
             )
             DictionaryFiled(
-                onclick = {},
+                onIconClicked = {
+                    translationWords.add(wordTranslateTextFieldValue)
+                    wordTranslateTextFieldValue = ""
+                },
                 showIcon = true,
                 title = context.getString(R.string.wordTranslate),
                 hint = context.getString(R.string.enterWordTranslate),
@@ -92,6 +105,24 @@ fun AddWordScreen(context: Context, paddingValues: PaddingValues) {
                     wordTranslateTextFieldValue = it
                 }
             )
+            LazyRow(
+                reverseLayout = true,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 20.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                items(translationWords) {
+                    TranslationItem(
+                        text = it,
+                        onDeleteClick = { translation ->
+                            if (translation in translationWords) {
+                                translationWords.remove(translation)
+                            }
+                        },
+                    )
+                }
+            }
             DictionaryOption(
                 context = context,
                 isChecked = addToBookmarksValue,
@@ -101,7 +132,7 @@ fun AddWordScreen(context: Context, paddingValues: PaddingValues) {
             )
         }
         Box(
-            modifier = Modifier
+            modifier = Modifier.clickable {  }
                 .fillMaxWidth()
                 .padding(14.dp)
                 .background(color = Axolotl, shape = Shapes().small)
