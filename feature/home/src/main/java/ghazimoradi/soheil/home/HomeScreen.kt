@@ -27,15 +27,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import ghazimoradi.soheil.core.designsystem.components.DictionaryTextBodyMedium
-import ghazimoradi.soheil.core.designsystem.components.DictionaryTextBodySmall
-import ghazimoradi.soheil.core.designsystem.icon.Add
-import ghazimoradi.soheil.core.designsystem.icon.Search
-import ghazimoradi.soheil.core.designsystem.ui.Anti_Flash_White
-import ghazimoradi.soheil.core.designsystem.ui.Black
-import ghazimoradi.soheil.core.designsystem.ui.Bright_Gray
-import ghazimoradi.soheil.core.designsystem.ui.Platinum
-import ghazimoradi.soheil.core.designsystem.ui.White
+import ghazimoradi.soheil.core.designsystem.components.*
+import ghazimoradi.soheil.core.designsystem.icon.*
+import ghazimoradi.soheil.core.designsystem.ui.*
 import ghazimoradi.soheil.core.ui.WordItems
 import ghazimoradi.soheil.home.events.HomeScreenEvents
 

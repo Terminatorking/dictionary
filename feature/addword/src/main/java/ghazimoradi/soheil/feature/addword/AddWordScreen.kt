@@ -27,22 +27,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import ghazimoradi.soheil.core.designsystem.components.DictionaryTextBodyMedium
-import ghazimoradi.soheil.core.designsystem.components.DictionaryTextBodySmall
-import ghazimoradi.soheil.core.designsystem.components.DictionaryTextFieldLabelMedium
-import ghazimoradi.soheil.core.designsystem.components.DictionaryTextLabelLarge
-import ghazimoradi.soheil.core.designsystem.ui.Anti_Flash_White
-import ghazimoradi.soheil.core.designsystem.ui.Axolotl
-import ghazimoradi.soheil.core.designsystem.ui.Black
-import ghazimoradi.soheil.core.designsystem.ui.BlackAlpha4f
-import ghazimoradi.soheil.core.designsystem.ui.Bright_Gray
-import ghazimoradi.soheil.core.designsystem.ui.Davys_Grey
-import ghazimoradi.soheil.core.designsystem.ui.Gray
-import ghazimoradi.soheil.core.designsystem.ui.Platinum
-import ghazimoradi.soheil.core.designsystem.ui.White
+import ghazimoradi.soheil.core.designsystem.components.*
+import ghazimoradi.soheil.core.designsystem.ui.*
+
+enum class AddWordScreenTabs {
+    FA, EN
+}
 
 @Composable
 fun AddWordScreen(context: Context, paddingValues: PaddingValues) {
+    var selectedTab by remember {
+        mutableStateOf(AddWordScreenTabs.EN)
+    }
     var wordTextFieldValue by remember {
         mutableStateOf("")
     }
@@ -70,7 +66,13 @@ fun AddWordScreen(context: Context, paddingValues: PaddingValues) {
                     R.string.addNewWords
                 ), color = Black
             )
-            DictionaryTabLayOut(context = context)
+            DictionaryTabLayOut(
+                context = context,
+                selectedTab = selectedTab,
+                onTabChanged = {
+                    selectedTab = it
+                },
+            )
             DictionaryFiled(
                 title = context.getString(R.string.word),
                 hint = context.getString(R.string.enterWord),
@@ -192,7 +194,11 @@ fun DictionaryFiled(
 }
 
 @Composable
-fun DictionaryTabLayOut(context: Context) {
+fun DictionaryTabLayOut(
+    context: Context,
+    selectedTab: AddWordScreenTabs,
+    onTabChanged: (AddWordScreenTabs) -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -209,24 +215,36 @@ fun DictionaryTabLayOut(context: Context) {
             Box(
                 modifier = Modifier
                     .weight(1f)
-                    .background(color = White, shape = Shapes().small)
+                    .background(
+                        color = if (selectedTab == AddWordScreenTabs.FA) White else Platinum,
+                        shape = Shapes().small
+                    )
+                    .clickable {
+                        onTabChanged.invoke(AddWordScreenTabs.FA)
+                    }
                     .padding(2.dp),
                 contentAlignment = Alignment.Center
             ) {
                 DictionaryTextLabelLarge(
-                    text = context.getString(R.string.english),
+                    text = context.getString(R.string.persian),
                     color = Black
                 )
             }
             Box(
                 modifier = Modifier
                     .weight(1f)
-                    .background(color = Platinum, shape = Shapes().small)
+                    .background(
+                        color = if (selectedTab == AddWordScreenTabs.EN) White else Platinum,
+                        shape = Shapes().small
+                    )
+                    .clickable {
+                        onTabChanged.invoke(AddWordScreenTabs.EN)
+                    }
                     .padding(2.dp),
                 contentAlignment = Alignment.Center
             ) {
                 DictionaryTextLabelLarge(
-                    text = context.getString(R.string.persian),
+                    text = context.getString(R.string.english),
                     color = Black
                 )
             }
