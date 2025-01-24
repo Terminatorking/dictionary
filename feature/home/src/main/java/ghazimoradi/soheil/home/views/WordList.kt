@@ -14,11 +14,10 @@ import ghazimoradi.soheil.core.ui.WordItems
 import ghazimoradi.soheil.home.HomeScreenViewModel
 import ghazimoradi.soheil.home.events.HomeScreenEvents
 
-
 @Composable
 fun WordList(viewModel: HomeScreenViewModel) {
+    viewModel.loadNextPage(shouldRestart = true)
     val dictionaryWords = viewModel.words.collectAsState()
-
     val listState = rememberLazyListState()
     LazyColumn(modifier = Modifier.fillMaxSize(), state = listState) {
         items(dictionaryWords.value) {

@@ -24,7 +24,7 @@ class HomeScreenViewModel @Inject constructor(
     private var currentPage = 0
     private var pageSize = 20
 
-    private val _words = MutableStateFlow<List<Dictionary>>(emptyList())
+    private var _words = MutableStateFlow<List<Dictionary>>(emptyList())
     val words: StateFlow<List<Dictionary>> get() = _words
 
     private val _bookMarkedWords = MutableStateFlow<List<Dictionary>>(emptyList())
@@ -35,7 +35,12 @@ class HomeScreenViewModel @Inject constructor(
         getBookMarkedWords()
     }
 
-    fun loadNextPage() {
+    fun loadNextPage(shouldRestart: Boolean = false) {
+        if (shouldRestart) {
+            currentPage = 0
+            pageSize = 20
+            _words =  MutableStateFlow(emptyList())
+        }
         viewModelScope.launch {
             val collectedWords =
                 getDictionaryWordsUseCase.invoke(limit = pageSize, offset = currentPage * pageSize)
