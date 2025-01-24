@@ -9,12 +9,20 @@ import ghazimoradi.soheil.feature.addword.AddWordScreen
 
 const val addWordScreenNavigation = "addWordScreenNavigation"
 
-fun NavGraphBuilder.addWordScreen(context: Context, paddingValues: PaddingValues) {
+fun NavGraphBuilder.addWordScreen(
+    context: Context,
+    paddingValues: PaddingValues,
+    navigateToHomeScreen: () -> Unit
+) {
     composable(route = addWordScreenNavigation) {
-        AddWordScreen(context = context, paddingValues = paddingValues)
+        AddWordScreen(
+            context = context,
+            paddingValues = paddingValues,
+            navigateToHomeScreen = navigateToHomeScreen
+        )
     }
 }
 
-fun NavController.navigateToAddWordScreen(){
+fun NavController.navigateToAddWordScreen() {
     navigate(route = addWordScreenNavigation)
 }

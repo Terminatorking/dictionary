@@ -9,6 +9,10 @@ import javax.inject.Inject
 
 class DictionaryRepositoryImpl @Inject constructor(private val dictionaryDao: DictionaryDao) :
     DictionaryRepository {
+    override suspend fun addNewWord(dictionary: Dictionary) {
+        dictionaryDao.insertWord(entity = dictionary.toDictionaryEntity())
+    }
+
     override suspend fun getWords(limit: Int, offset: Int): List<Dictionary> {
         return dictionaryDao.getWords(limit = limit, offset = offset).map { dictionaryEntity ->
             dictionaryEntity.toDictionary()

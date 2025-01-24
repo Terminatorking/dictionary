@@ -4,6 +4,7 @@ import ghazimoradi.soheil.model.Dictionary
 import ghazimoradi.soheil.model.SearchType
 
 interface DictionaryRepository {
+    suspend fun addNewWord(dictionary: Dictionary)
     suspend fun getWords(limit: Int, offset: Int): List<Dictionary>
     suspend fun updateWord(dictionary: Dictionary)
     suspend fun getBookMarkedWords(): List<Dictionary>

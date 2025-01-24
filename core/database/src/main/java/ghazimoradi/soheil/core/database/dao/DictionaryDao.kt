@@ -12,7 +12,7 @@ interface DictionaryDao {
     @Update
     suspend fun updateWord(entity: DictionaryEntity)
 
-    @Query("select * from $DICTIONARY_TABLE order by id asc limit :limit offset :offset")
+    @Query("select * from $DICTIONARY_TABLE order by enWord asc limit :limit offset :offset")
     suspend fun getWords(limit: Int, offset: Int): List<DictionaryEntity>
 
     @Query("select * from $DICTIONARY_TABLE where isBookMarked = 1")

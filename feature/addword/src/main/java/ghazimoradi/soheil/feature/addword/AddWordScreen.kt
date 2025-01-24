@@ -25,24 +25,31 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import ghazimoradi.soheil.core.designsystem.components.DictionaryTextBodySmall
 import ghazimoradi.soheil.core.designsystem.ui.Anti_Flash_White
 import ghazimoradi.soheil.core.designsystem.ui.Axolotl
 import ghazimoradi.soheil.core.designsystem.ui.Black
 import ghazimoradi.soheil.core.designsystem.ui.Davys_Grey
 import ghazimoradi.soheil.core.designsystem.ui.White
+import ghazimoradi.soheil.feature.addword.events.AddWordScreenUiEvents
 import ghazimoradi.soheil.feature.addword.views.DictionaryFiled
 import ghazimoradi.soheil.feature.addword.views.DictionaryOption
 import ghazimoradi.soheil.feature.addword.views.DictionaryTabLayOut
 import ghazimoradi.soheil.feature.addword.views.TranslationItem
+import ghazimoradi.soheil.model.Dictionary
 
 enum class AddWordScreenTabs {
     FA, EN
 }
 
 @Composable
-fun AddWordScreen(context: Context, paddingValues: PaddingValues) {
-
+fun AddWordScreen(
+    navigateToHomeScreen: () -> Unit,
+    context: Context,
+    paddingValues: PaddingValues,
+    viewModel: AddWordScreenViewModel = hiltViewModel()
+) {
     var translationWords = remember {
         mutableStateListOf<String>()
     }
@@ -132,7 +139,21 @@ fun AddWordScreen(context: Context, paddingValues: PaddingValues) {
             )
         }
         Box(
-            modifier = Modifier.clickable {  }
+            modifier = Modifier
+                .clickable {
+                    translationWords.forEach { translation ->
+                        viewModel.onEvent(
+                            AddWordScreenUiEvents.AddNewWord(
+                                Dictionary(
+                                    enWord = wordTextFieldValue,
+                                    faWord = translation,
+                                    isBookMarked = addToBookmarksValue
+                                )
+                            )
+                        )
+                    }
+                    navigateToHomeScreen.invoke()
+                }
                 .fillMaxWidth()
                 .padding(14.dp)
                 .background(color = Axolotl, shape = Shapes().small)

@@ -11,6 +11,7 @@ import ghazimoradi.soheil.feature.addword.navigation.navigateToAddWordScreen
 import ghazimoradi.soheil.feature.search.navigation.navigateToSearchScreen
 import ghazimoradi.soheil.feature.search.navigation.searchScreen
 import ghazimoradi.soheil.home.navigation.homeScreen
+import ghazimoradi.soheil.home.navigation.navigateToHomeScreen
 
 
 @Composable
@@ -26,7 +27,10 @@ fun DictionaryNavigation(
         navController = navHostController,
         startDestination = startDestination
     ) {
-        addWordScreen(context = context, paddingValues = paddingValues)
+        addWordScreen(
+            context = context,
+            paddingValues = paddingValues,
+            navigateToHomeScreen = { navHostController.navigateToHomeScreen() })
         homeScreen(
             context = context,
             paddingValues = paddingValues,
