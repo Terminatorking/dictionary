@@ -29,7 +29,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ghazimoradi.soheil.core.designsystem.components.*
 import ghazimoradi.soheil.core.designsystem.icon.*
 import ghazimoradi.soheil.core.designsystem.ui.*
-import ghazimoradi.soheil.core.ui.WordItems
+import ghazimoradi.soheil.core.ui.bottomSheet.SearchTypeBottomSheet
+import ghazimoradi.soheil.model.SearchType
 
 @Composable
 fun SearchScreen(
@@ -38,6 +39,21 @@ fun SearchScreen(
     viewModel: SearchScreenViewModel = hiltViewModel()
 ) {
     val searchWords = viewModel.searchWords.collectAsState()
+    val showBottomSheet = remember { mutableStateOf(false) }
+    val selectedType = remember { mutableStateOf(SearchType.En) }
+
+    if (showBottomSheet.value) {
+        SearchTypeBottomSheet(
+            context = context,
+            selectedType = selectedType.value,
+            onSelectedType = {
+                selectedType.value = it
+            },
+            onDismissRequest = {
+                showBottomSheet.value = false
+            },
+        )
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
