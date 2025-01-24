@@ -64,6 +64,6 @@ fun SearchScreen(
                 )
             },
         )
-        WordList(searchWords = searchWords.value)
+        WordList(searchWords = searchWords.value, viewModel = viewModel)
     }
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ghazimoradi.soheil.core.domain.usecases.SearchInWordsUseCase
+import ghazimoradi.soheil.core.domain.usecases.UpdateWordUseCase
 import ghazimoradi.soheil.feature.search.events.SearchScreenEvents
 import ghazimoradi.soheil.model.Dictionary
 import ghazimoradi.soheil.model.SearchType
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchScreenViewModel @Inject constructor(
-    private val searchInWordsUseCase: SearchInWordsUseCase
+    private val searchInWordsUseCase: SearchInWordsUseCase,
+    private val updateWordUseCase: UpdateWordUseCase,
 ) : ViewModel() {
 
     private val _searchWords: MutableStateFlow<List<Dictionary>> =
@@ -27,6 +29,8 @@ class SearchScreenViewModel @Inject constructor(
                 query = event.query,
                 searchType = event.searchType
             )
+
+            is SearchScreenEvents.UpdateBookMark -> updateWord(event.dictionary)
         }
     }
 
@@ -35,6 +39,11 @@ class SearchScreenViewModel @Inject constructor(
             searchInWordsUseCase.invoke(query = query, searchType = searchType).let {
                 _searchWords.value = it
             }
+        }
+    }
+    fun updateWord(dictionary: Dictionary){
+        viewModelScope.launch {
+            updateWordUseCase.invoke(dictionary = dictionary)
         }
     }
 }
