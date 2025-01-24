@@ -23,17 +23,17 @@ val Typography = Typography(
         fontFamily = vazirFamily
     ),
     labelLarge = TextStyle(
-        fontSize = 16.sp,
+        fontSize = 18.sp,
         fontWeight = FontWeight.Light,
         fontFamily = vazirFamily
     ),
     labelMedium = TextStyle(
-        fontSize = 14.sp,
+        fontSize = 16.sp,
         fontWeight = FontWeight.Light,
         fontFamily = vazirFamily
     ),
     labelSmall = TextStyle(
-        fontSize = 10.sp,
+        fontSize = 14.sp,
         fontWeight = FontWeight.Light,
         fontFamily = vazirFamily
     ),

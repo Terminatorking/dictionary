@@ -2,6 +2,7 @@ package ghazimoradi.soheil.core.ui.bottomSheet
 
 import android.content.Context
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,7 +18,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ghazimoradi.soheil.core.designsystem.components.DictionaryTextBodySmall
 import ghazimoradi.soheil.core.designsystem.components.DictionaryTextLabelLarge
-import ghazimoradi.soheil.core.designsystem.components.DictionaryTextLabelMedium
 import ghazimoradi.soheil.core.designsystem.ui.Black
 import ghazimoradi.soheil.core.designsystem.ui.Gray
 import ghazimoradi.soheil.core.ui.R
@@ -27,7 +27,6 @@ import ghazimoradi.soheil.model.SearchType
 @Composable
 fun SearchTypeBottomSheet(
     context: Context,
-    selectedType: SearchType,
     onSelectedType: (SearchType) -> Unit,
     onDismissRequest: () -> Unit
 ) {
@@ -48,20 +47,27 @@ fun SearchTypeBottomSheet(
                 )
             }
             items(SearchType.entries.toTypedArray()) {
-                SearchTypeItem(searchType = it, context = context)
+                SearchTypeItem(searchType = it, context = context, onSelectedType = onSelectedType)
             }
         }
     }
 }
 
 @Composable
-private fun SearchTypeItem(searchType: SearchType, context: Context) {
+private fun SearchTypeItem(
+    searchType: SearchType,
+    context: Context,
+    onSelectedType: (SearchType) -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
             .border(width = 1.dp, color = Gray, shape = CircleShape)
             .padding(vertical = 4.dp, horizontal = 6.dp)
+            .clickable {
+                onSelectedType.invoke(searchType)
+            }
     ) {
         DictionaryTextLabelLarge(
             modifier = Modifier.fillMaxWidth(),

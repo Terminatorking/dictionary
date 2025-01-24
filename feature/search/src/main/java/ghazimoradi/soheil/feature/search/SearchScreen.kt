@@ -55,9 +55,9 @@ fun SearchScreen(
     if (showBottomSheet.value) {
         SearchTypeBottomSheet(
             context = context,
-            selectedType = selectedType.value,
             onSelectedType = {
                 selectedType.value = it
+                showBottomSheet.value = false
             },
             onDismissRequest = {
                 showBottomSheet.value = false
@@ -71,6 +71,7 @@ fun SearchScreen(
             .padding(paddingValues),
     ) {
         SearchSection(
+            selectedType = selectedType,
             showBottomSheet = showBottomSheet,
             context = context,
             onSearch = { search ->
@@ -88,6 +89,7 @@ fun SearchScreen(
 
 @Composable
 private fun SearchSection(
+    selectedType: MutableState<SearchType>,
     context: Context,
     onSearch: (String) -> Unit,
     showBottomSheet: MutableState<Boolean>
@@ -101,6 +103,7 @@ private fun SearchSection(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         SearchFilter(
+            selectedType = selectedType,
             context = context,
             modifier = Modifier
                 .weight(0.4f)
@@ -130,7 +133,11 @@ fun WordList(searchWords: List<Dictionary>) {
 }
 
 @Composable
-private fun SearchFilter(context: Context, modifier: Modifier) {
+private fun SearchFilter(
+    context: Context,
+    modifier: Modifier,
+    selectedType: MutableState<SearchType>,
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -145,7 +152,12 @@ private fun SearchFilter(context: Context, modifier: Modifier) {
             contentDescription = "",
             modifier = Modifier.size(24.dp)
         )
-        DictionaryTextLabelMedium(text = context.getString(R.string.toPersian), color = Black)
+        DictionaryTextLabelSmall(
+            text = if (selectedType.value == SearchType.En)
+                context.getString(R.string.toEnglish)
+            else context.getString(R.string.toPersian),
+            color = Black,
+        )
     }
 }
 
